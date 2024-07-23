@@ -10,16 +10,16 @@ import java.util.Set;
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "id", columnDefinition = "BIGINT")
     private Long id;
 
-    @Column(name = "price", nullable = false)
+    @Column(name = "price", nullable = false, columnDefinition = "INTEGER")
     private Integer price;
 
-    @Column(name = "name", nullable = false, length = 15)
+    @Column(name = "name", nullable = false, columnDefinition = "VARCHAR(15)")
     private String name;
 
-    @Column(name = "img_url", nullable = false)
+    @Column(name = "img_url", nullable = false, columnDefinition = "VARCHAR(255)"   )
     private String imgUrl;
 
     @ManyToOne
@@ -28,9 +28,6 @@ public class Product {
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Option> options = new HashSet<>();
-
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
-    private List<Wish> wishes;
 
     protected Product() {}
 
@@ -59,10 +56,6 @@ public class Product {
 
     public Category getCategory() {
         return category;
-    }
-
-    public List<Wish> getWishes() {
-        return wishes;
     }
 
     public Set<Option> getOptions() {
