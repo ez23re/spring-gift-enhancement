@@ -1,6 +1,7 @@
 package gift.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 
 import java.util.List;
 
@@ -12,12 +13,15 @@ public class Category {
     @Column(name = "id", columnDefinition = "BIGINT")
     private Long id;
 
+    @NotNull
     @Column(name = "name", nullable = false, unique = true, columnDefinition = "VARCHAR(255)")
     private String name;
 
+    @NotNull
     @Column(name = "color", nullable = false, columnDefinition = "VARCHAR(50)")
     private String color;
 
+    @NotNull
     @Column(name = "img_url", nullable = false, columnDefinition = "VARCHAR(255)")
     private String imgUrl;
 
