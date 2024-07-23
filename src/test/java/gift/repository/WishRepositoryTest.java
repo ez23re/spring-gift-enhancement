@@ -29,7 +29,6 @@ class WishRepositoryTest {
 
     @Test
     void testSaveAndFindById() {
-        // given
         Category category = new Category("Sample Category", "Red", "sample-img-url", "Sample Description");
         categoryRepository.save(category);
 
@@ -42,10 +41,8 @@ class WishRepositoryTest {
         Wish wish = new Wish(member, product);
         wishRepository.save(wish);
 
-        // when
         Optional<Wish> foundWish = wishRepository.findById(wish.getId());
 
-        // then
         assertThat(foundWish).isPresent();
         assertThat(foundWish.get().getId()).isEqualTo(wish.getId());
         assertThat(foundWish.get().getMember().getEmail()).isEqualTo("john.doe@example.com");

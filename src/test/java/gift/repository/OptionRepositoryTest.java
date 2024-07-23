@@ -25,7 +25,6 @@ class OptionRepositoryTest {
 
     @Test
     void testSaveAndFindById() {
-        // given
         Category category = new Category("Sample Category", "Red", "sample-img-url", "Sample Description");
         categoryRepository.save(category);
 
@@ -35,10 +34,8 @@ class OptionRepositoryTest {
         Option option = new Option("Sample Option", product, 10);
         optionRepository.save(option);
 
-        // when
         Optional<Option> foundOption = optionRepository.findById(option.getId());
 
-        // then
         assertThat(foundOption).isPresent();
         assertThat(foundOption.get().getName()).isEqualTo("Sample Option");
         assertThat(foundOption.get().getProduct().getName()).isEqualTo("Sample Product");
