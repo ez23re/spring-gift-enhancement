@@ -2,8 +2,6 @@ package gift.entity;
 
 import jakarta.persistence.*;
 
-import java.util.List;
-
 @Entity
 @Table(name = "member")
 public class Member {
@@ -36,5 +34,9 @@ public class Member {
 
     public String getPassword() {
         return password;
+    }
+
+    public boolean checkPassword(String password) {
+        return this.password.equals(password);
     }
 }
