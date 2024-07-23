@@ -9,19 +9,19 @@ import java.util.List;
 public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "id", columnDefinition = "BIGINT")
     private Long id;
 
-    @Column(name = "name", nullable = false, unique = true)
+    @Column(name = "name", nullable = false, unique = true, columnDefinition = "VARCHAR(255)")
     private String name;
 
-    @Column(name = "color", nullable = false)
+    @Column(name = "color", nullable = false, columnDefinition = "VARCHAR(50)")
     private String color;
 
-    @Column(name = "img_url", nullable = false)
+    @Column(name = "img_url", nullable = false, columnDefinition = "VARCHAR(255)")
     private String imgUrl;
 
-    @Column(name = "description")
+    @Column(name = "description", columnDefinition = "TEXT")
     private String description;
 
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
