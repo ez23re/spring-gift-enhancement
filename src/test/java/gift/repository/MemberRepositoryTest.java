@@ -18,7 +18,7 @@ public class MemberRepositoryTest {
     private MemberRepository memberRepository;
 
     @Test
-    public void testCreateAndFindMember() {
+    public void testCreateAndFindMemberByEmail() {
         // 중복되지 않는 이메일을 사용하여 회원 생성 및 저장
         Member member = new Member("Test@example.com", "password");
         memberRepository.save(member);
@@ -28,24 +28,45 @@ public class MemberRepositoryTest {
         assertThat(found).isPresent();
         assertThat(found.get().getEmail()).isEqualTo("Test@example.com");
         assertThat(found.get().getPassword()).isEqualTo("password");
+    }
+
+    @Test
+    public void testFindMemberById() {
+        // 중복되지 않는 이메일을 사용하여 회원 생성 및 저장
+        Member member = new Member("Test@example.com", "password");
+        memberRepository.save(member);
 
         // ID로 회원 찾기
+        Optional<Member> found = memberRepository.findByEmail("Test@example.com");
+        assertThat(found).isPresent();
+
         Optional<Member> foundById = memberRepository.findById(found.get().getId());
         assertThat(foundById).isPresent();
         assertThat(foundById.get().getEmail()).isEqualTo("Test@example.com");
         assertThat(foundById.get().getPassword()).isEqualTo("password");
+    }
+
+    @Test
+    public void testDeleteMember() {
+        // 중복되지 않는 이메일을 사용하여 회원 생성 및 저장
+        Member member = new Member("Test@example.com", "password");
+        memberRepository.save(member);
+
+        // 이메일로 회원 찾기
+        Optional<Member> found = memberRepository.findByEmail("Test@example.com");
+        assertThat(found).isPresent();
 
         // 회원 삭제
-        memberRepository.delete(foundById.get());
+        memberRepository.delete(found.get());
 
         // 삭제된 회원 확인
-        Optional<Member> deleted = memberRepository.findById(foundById.get().getId());
+        Optional<Member> deleted = memberRepository.findById(found.get().getId());
         assertThat(deleted).isNotPresent();
     }
 
     @Test
-    public void testDuplicateEmail() {
-        // 중복된 이메일로 회원 생성 할 경우
+    public void testSaveMemberWithDuplicateEmailShouldThrowException() {
+        // 중복된 이메일로 회원 생성
         Member member1 = new Member("duplicate@example.com", "password1");
         memberRepository.save(member1);
 
