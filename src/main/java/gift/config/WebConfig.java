@@ -16,7 +16,7 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(jwtInterceptor)
-                .addPathPatterns("/wish/**") // Interceptor를 적용할 URL 패턴을 지정
+                .addPathPatterns("/wish/**") // Wish 관련 경로에 인터셉터 적용
                 .excludePathPatterns("/login", "/register"); // 로그인, 회원가입 등의 경로는 제외할 수 있다.
     }
 }

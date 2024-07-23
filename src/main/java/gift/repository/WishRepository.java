@@ -10,6 +10,10 @@ import java.util.Optional;
 
 public interface WishRepository extends JpaRepository<Wish, Long> {
     List<Wish> findByMember(Member member);
+
     void deleteByMemberAndProduct(Member member, Product product);
+
     Optional<Wish> findByMemberAndProduct(Member member, Product product);
+
+    boolean existsByMemberAndProduct(Member member, Product product);
 }
